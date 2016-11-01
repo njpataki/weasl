@@ -1,2 +1,2 @@
 # weasl
-weakly supervised active learning framework
+weakly supervised active learning framework.
