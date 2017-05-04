@@ -13,7 +13,10 @@ class Command(object):
 class StartProjectCommand(Command):
 
     def setup_clparser(self, parser):
-        parser.add_argument('name', type=str, help='Name of the project')
+        parser.add_argument(
+            'name', 
+            type=str, 
+            help='Name of the project')
         return parser
 
     def execute(self, clargs):
@@ -23,7 +26,10 @@ class StartProjectCommand(Command):
 class StartClassifier(Command):
 
     def setup_clparser(self, parser):
-        parser.add_argument('name', type=str, help='Name of the classifier')
+        parser.add_argument(
+            'name', 
+            type=str, 
+            help='Name of the classifier')
         return parser
 
     def execute(self, clargs):
