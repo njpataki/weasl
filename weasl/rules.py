@@ -1,8 +1,8 @@
 from . import regex
 
 class Rule(object):
-    def run(self, samples):
-        raise NotImplementedError('Rule method run not implemented')
+    def __call__(self, samples):
+        raise NotImplementedError('Rule method __call__ not implemented')
 
 class RegexInFieldsRule(rule):
 
@@ -11,7 +11,7 @@ class RegexInFieldsRule(rule):
         self.rgx = rgx
         self.invert = invert
 
-    def run(self, samples):
+    def __call__(self, samples):
         labels = pd.Series(np.zeros(samples.shape[0]))
         for i, s in samples.iterrows():
             for field in self.fields:
