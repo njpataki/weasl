@@ -7,9 +7,6 @@ setup(name='weasl',
       license='MIT',
       url='https://github.com/njpataki/weasl',
       packages=['weasl'],
-      entry_points={
-            'console_scripts': ['weasl = weasl.main:top_level_command']
-      },
+      entry_points={'console_scripts': ['weasl = weasl.main:top_level_command']},
       install_requires=['numpy', 'scipy', 'scikit-learn',
-                        'matplotlib', 'pandas', 'seaborn']
-      )
+                        'matplotlib', 'pandas', 'seaborn'])

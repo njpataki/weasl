@@ -1,3 +1,6 @@
+import pandas as pd
+import numpy as np
+
 from . import regex
 
 class Rule(object):
@@ -19,6 +22,5 @@ class RegexInFieldsRule(rule):
                     labels[i] = 1
                     break
         if self.invert:
-            return 1 - labels
-        else:
-            return labels
+            labels = 1 - labels
+        return labels

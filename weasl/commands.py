@@ -2,7 +2,6 @@ import os
 
 from . import utils
 
-
 class Command(object):
 
     def setup_clparser(self, parser):

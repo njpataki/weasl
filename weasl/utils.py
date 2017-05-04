@@ -1,6 +1,5 @@
 import os
 
-
 def create_dir_structure(dir_structure):
     for branch in dir_structure:
         rest, node = os.path.split(branch)
@@ -11,4 +10,3 @@ def create_dir_structure(dir_structure):
                 os.mknod(branch)
             else:
                 os.mkdir(branch)
-            
