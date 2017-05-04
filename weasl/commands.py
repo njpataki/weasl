@@ -18,8 +18,17 @@ class StartProjectCommand(Command):
         return parser
 
     def execute(self, clargs):
-        dirs = ['rules', 'generators', 'featurizers', 'classifiers', 'evaluation']
+        dirs = ['rules', 
+                'config', 
+                'curated_labels',
+                os.path.join('featurizers', 'master.py'),
+                os.path.join('classifiers', 'master.py'),
+                os.path.join('data', 'training_sets'),
+                os.path.join('data', 'training_sets'),
+                os.path.join('data', 'test_sets'),
+                os.path.join('tmp', 'serialized_models')]
         utils.create_dir_structure([os.path.join(clargs.name, dir) for dir in dirs])
+        os.mknod(os.path.join(clargs.name, 'config', 'master.yaml'))
 
 class StartClassifier(Command):
 
@@ -28,5 +37,8 @@ class StartClassifier(Command):
         return parser
 
     def execute(self, clargs):
-        dirs = ['rules', 'generators', 'featurizers', 'classifiers', 'evaluation']
+        dirs = ['rules', 'featurizers', 'classifiers']
         utils.create_dir_structure([os.path.join(dir, '%s.py' % clargs.name) for dir in dirs])
+
+        dirs = ['config']
+        utils.create_dir_structure([os.path.join(dir, '%s.yaml' % clargs.name) for dir in dirs])
