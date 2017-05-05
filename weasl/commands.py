@@ -31,7 +31,7 @@ class StartProjectCommand(Command):
                 os.path.join('data', 'test_sets'),
                 os.path.join('tmp', 'serialized_models')]
         utils.create_dir_structure([os.path.join(clargs.name, dir) for dir in dirs])
-        os.mknod(os.path.join(clargs.name, 'config', 'master.yaml'))
+        utils.touch(os.path.join(clargs.name, 'config', 'master.yaml'))
 
 class StartClassifier(Command):
 
