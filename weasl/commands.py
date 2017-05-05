@@ -62,41 +62,35 @@ class Train(Command):
             help='Absolute path to training permits')
         return parser
 
-    def set_up(self, clargs):
+    # use execute method to execute all the private methods 
+
+    def _get_feature_functions(self, clargs):
 
         # construct path to feature_functions
-        # use eval(feature_func_string) 
-        # execture feature_func to get data
-        # hstack the results of these feature functions
-
-        # construct path to clfr
-        # use eval(clf_str)
-        # pass the featurized train_matrix
-
-        # access user-defined rules in rules.py
-        # apply these rules and create labels using pre-defined labeling module
-
-        # fit with rule_based_labels, train_matrix
-
-        # return trained_clf
+        # use project_env.get_fucntions to get a lsit of feature functions availabel
+        # use feautures module to get a feature matrix
 
         config_dict = config.read_config(clargs.name)
         featurizer = config_dict['featurizers'] 
         clf = config_dict['classifier']
 
+    def _build_clf():
+        # construct path to clfr
+        # use project_env.get_class(path_to_clf_str)
+        # instantiate the clf
+        pass
 
+    def _fit():
+        # for each set of labels return a fitted classier in a list
+        pass
         
+    def _label_samples():
+        # use labels.py to return a df of labels
+
+    def _serialize():
+        # serialize all the clfrs to disc using conventions in google sheet
+        pass
 
     def execute(self, clargs):
+        pass
 
-        set_up()
-        fit()
-        predict()
-
-
-    def fit(self):
-        
-        raise NotImplementedError()
-
-    def predict(self):
-        raise NotImplementedError()
