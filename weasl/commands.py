@@ -1,5 +1,6 @@
 import os
 
+from . import features
 from . import config
 from . import utils
 
@@ -26,7 +27,6 @@ class StartProjectCommand(Command):
                 'curated_labels',
                 os.path.join('featurizers', 'master.py'),
                 os.path.join('classifiers', 'master.py'),
-                os.path.join('data', 'training_sets'),
                 os.path.join('data', 'training_sets'),
                 os.path.join('data', 'test_sets'),
                 os.path.join('tmp', 'serialized_models')]
@@ -63,12 +63,16 @@ class Train(Command):
         return parser
 
     # use execute method to execute all the private methods 
-
     def _get_feature_functions(self, clargs):
 
         # construct path to feature_functions
-        # use project_env.get_fucntions to get a lsit of feature functions availabel
-        # use feautures module to get a feature matrix
+        dirs = [os.path.join('featurizers', 'master.py'),
+                os.path.join('featurizers', clargs.name)]
+        names_features = {}
+        for dir in dirs:
+            names_features.update(project_env.get_functions(clargs.name,dir))
+        # use project_env.get_functions to get a list of feature functions available
+        # use features module to get a feature matrix
 
         config_dict = config.read_config(clargs.name)
         featurizer = config_dict['featurizers'] 
@@ -81,11 +85,12 @@ class Train(Command):
         pass
 
     def _fit():
-        # for each set of labels return a fitted classier in a list
+        # for each set of labels return a fitted classifier in a list
         pass
         
     def _label_samples():
         # use labels.py to return a df of labels
+        pass
 
     def _serialize():
         # serialize all the clfrs to disc using conventions in google sheet
