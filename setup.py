@@ -1,6 +1,5 @@
 from setuptools import setup
 
-
 setup(name='weasl',
       version='0.1',
       description='Weakly supervised active learning',
@@ -8,4 +7,4 @@ setup(name='weasl',
       url='https://github.com/njpataki/weasl',
       packages=['weasl'],
       entry_points={'console_scripts': ['weasl = weasl.main:top_level_command']},
-      install_requires=['pandas'])
+      install_requires=['numpy', 'scipy', 'scikit-learn', 'pandas', 'seaborn', 'pyyaml'])
