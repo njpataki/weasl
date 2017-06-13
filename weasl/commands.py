@@ -105,10 +105,6 @@ class Train(Command):
         train_df = pd.read_csv(clargs.train_file)
         feature_funcs = self._get_feature_functions(clargs)
         train_matrix_df = features.call_and_concat(train_df, feature_funcs)
-        rule_funcs = self._get_rule_functions(clargs)
-        # NOTE: imp.load_source is picking up 'featurizers.electrical' methods.
-        # NOTE: if you switch order of read
-        print feature_funcs
-        print rule_funcs 
-        # labels = [rule_func(train_df) for rule_func in rule_funcs]
+        rule_funcs = self._get_rule_functions(clargs) 
+        labels = [rule_func(train_df) for rule_func in rule_funcs[:2]]
         
