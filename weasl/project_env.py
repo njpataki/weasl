@@ -1,10 +1,8 @@
-# import importlib
+import importlib
 import inspect
-import imp
 
 def _get_module(module_name, dir):
-    path = '%s/%s.py' % (dir, module_name)
-    return imp.load_source(module_name, path)
+    return importlib.import_module('%s.%s' % (dir, module_name))
 
 def get_functions(module_name, dir):
     module = _get_module(module_name, dir)
