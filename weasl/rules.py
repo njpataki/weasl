@@ -15,8 +15,6 @@ class RegexInFieldsRule(Rule):
         self.invert = invert
 
     def __call__(self, samples_df):
-        # TODO: we need error handling on rules we ship with the package
-        # e.g. if not set(self.fields).issubset(set(samples_df.columns)) -> raise Error
         labels = pd.Series(np.zeros(samples_df.shape[0]))
         for i, s in samples_df.iterrows():
             for field in self.fields:
