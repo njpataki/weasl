@@ -60,9 +60,9 @@ class Train(Command):
 
     def setup_clparser(self, parser):
         parser.add_argument(
-            'name', 
+            'classifier-name', 
             type=str, 
-            help='Name of the classifier')
+            help='Name passed to `weasl startclassifier [name]`')
         parser.add_argument(
             '--train-file', 
             type=str, 
@@ -106,5 +106,6 @@ class Train(Command):
         feature_funcs = self._get_feature_functions(clargs)
         train_matrix_df = features.call_and_concat(train_df, feature_funcs)
         rule_funcs = self._get_rule_functions(clargs) 
-        labels = [rule_func(train_df) for rule_func in rule_funcs[:2]]
+        y_train_labels = [rule_func(train_df) for rule_func in rule_funcs]
+
         
