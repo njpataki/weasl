@@ -4,7 +4,8 @@ import numpy as np
 
 def _match_regex(rgx, text):
     punct_kw = '(^|\s+|\punct+)' + rgx
-    punct_kw = punct_kw.replace('\punct', '[%s]' % ''.join(['\%s' % x for x in string.punctuation]))
+    string_punc = ['\%s' % x for x in string.punctuation]
+    punct_kw = punct_kw.replace('\punct', '[%s]' % ''.join(string_punc))
     match = re.search(punct_kw, text.lower())
     return match is not None
 
