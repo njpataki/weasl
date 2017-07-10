@@ -5,7 +5,8 @@ from . import commands
 def top_level_command():
     
     COMMANDS = {'startproject': commands.StartProjectCommand(), 
-                'startclassifier': commands.StartClassifier()}
+                'startclassifier': commands.StartClassifier(),
+                'train': commands.Train()}
 
     parser = argparse.ArgumentParser(
         prog='weasl', 
