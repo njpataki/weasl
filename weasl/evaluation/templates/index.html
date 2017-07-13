@@ -1,0 +1,49 @@
+{# This simple template derives from ``base.html``. See ``base.html`` for
+   more information about template inheritance. #}
+{%- extends "base.html" %}
+
+{# Loads some of the macros included with Flask-Bootstrap. We are using the
+   utils module here to automatically render Flask's flashed messages in a
+   bootstrap friendly manner #}
+{% import "bootstrap/utils.html" as utils %}
+
+
+{# Inside the ``content`` is where you should place most of your own stuff.
+   This will keep scripts at the page end and a navbar you add on later
+   intact. #}
+{% block content %}
+  <div class="container">
+  {%- with messages = get_flashed_messages(with_categories=True) %}
+  {%- if messages %}
+    <div class="row">
+      <div class="col-md-12">
+        {{utils.flashed_messages(messages)}}
+      </div>
+    </div>
+  {%- endif %}
+  {%- endwith %}
+    <div class="jumbotron">
+      <h1>Right or wrong?</h1>
+	<form method="POST" action="/" class="navbar-form", role="search">
+	{{ form.csrf_token }}
+	<table>
+	  <tr>
+	    {% for h in headers %}
+	      <th>{{ h }}</th>
+	    {% endfor %}
+	      <th>Manual label</th>
+	  </tr>
+	  {% for row in samples %}
+	    <tr>
+	      {% for field in row %}
+	        <td>{{ field }}</th>
+	      {% endfor %}
+	        <td>{{ row.checkbox }}</th>
+	  {% endfor %}  
+	  </tr>
+	</table>
+	<input class="btn btn-primary" role="button" type="submit" value="Done">
+	</form>
+    </div>
+
+{%- endblock %}

@@ -1,12 +1,14 @@
 import pickle
 import os
 
+import argparse
 import pandas as pd
 
 from . import project_env
 from . import features
 from . import config
 from . import utils
+from .evaluation import server
 
 class Command(object):
 
@@ -125,3 +127,50 @@ class Train(Command):
                 y_train = rule_func(train_df)
                 clf_.fit(ftrzd_train_df, y_train) 
                 self._serialize(clargs, rule_name, clf_name, clf_)
+
+
+class Evaluate(Command):
+
+    def setup_clparser(self, parser):
+        parser.add_argument(
+            'name', 
+            type=str, 
+            help='arg passed to `weasl startclassifier [name]`')
+        parser.add_argument(
+            '--evaluation-file',
+            type=argparse.FileType('r'),
+            help='path to labeled file')
+        parser.add_argument(
+            '--interactive',
+            action='store_true',
+            default=False,
+            help='spawns the evaluation server for interactive evaluation')
+        parser.add_argument(
+            '--label-file',
+            default=None,
+            type=argparse.FileType('r'),
+            help='file with curated labels')
+        return parser
+    
+    #TODO This should be done outside the commands module
+    def _write_evaluation_metrics(self, eval_df, curated_labels):
+        from sklearn.metrics import f1_score
+        f1 = f1_score(eval_df['labels'].values, curated_labels.values)
+        print('F1 score: %s' % f1)
+        
+    def execute(self, clargs):
+        eval_df = pd.read_csv(clargs.evaluation_file)
+        if clargs.interactive:
+            app_name = '%s_evaluation' % (clargs.name)
+            evaluation_server = server.EvaluationServer(app_name,
+                                                        clargs.evaluation_file.name,
+                                                        eval_df)
+            evaluation_server.run()
+            curated_labels = pd.read_csv('curated_labels/%s' % clargs.evaluation_file.name,
+                                         index_col=0)
+        else:
+            if clargs.label_file is not None:
+                curated_labels = pd.read_csv(clargs.label_file, index_col=0)
+            else:
+                raise ValueError('--label-file must be non-null if not running in --interactive mode')
+        self._write_evaluation_metrics(eval_df, curated_labels)
