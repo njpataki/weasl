@@ -7,4 +7,4 @@ setup(name='weasl',
       url='https://github.com/njpataki/weasl',
       packages=['weasl'],
       entry_points={'console_scripts': ['weasl = weasl.main:top_level_command']},
-      install_requires=['numpy', 'scipy', 'scikit-learn', 'pandas', 'seaborn', 'pyyaml'])
+      install_requires=['numpy', 'pandas'])
