@@ -108,7 +108,7 @@ class Train(Command):
         train_file = os.path.basename(clargs.train_file).split('.')[0]
         filepath_args = (clargs.name, rule_name, train_file, clf_name)
         filepath = 'tmp/serialized_models/%s__%s__%s__%s.pickle' % filepath_args
-        with open(filepath, 'w') as f:
+        with open(filepath, 'wb') as f:
             pickle.dump(clf, f)
 
     def execute(self, clargs):
@@ -119,9 +119,9 @@ class Train(Command):
          
         rules_funcs = self._get_rule_functions() 
         clfs_classes = self._build_classifiers()
-        for clf_name, clf in clfs_classes.iteritems():
+        for clf_name, clf in clfs_classes.items():
             clf_ = clf()
-            for rule_name, rule_func in rules_funcs.iteritems():
+            for rule_name, rule_func in rules_funcs.items():
                 y_train = rule_func(train_df)
                 clf_.fit(ftrzd_train_df, y_train) 
                 self._serialize(clargs, rule_name, clf_name, clf_)

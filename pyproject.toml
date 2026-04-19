@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "weasl"
+version = "0.1"
+description = "Weakly supervised active learning"
+license = { text = "MIT" }
+requires-python = ">=3.8"
+dependencies = ["numpy", "pandas", "pyyaml"]
+
+[project.scripts]
+weasl = "weasl.main:top_level_command"
