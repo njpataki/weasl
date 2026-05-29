@@ -14,7 +14,7 @@ def top_level_command():
     
     subparsers = parser.add_subparsers(help='sub-command helps')
 
-    for command, handler in COMMANDS.iteritems():
+    for command, handler in COMMANDS.items():
         command_subparser = subparsers.add_parser(command)
         command_subparser.set_defaults(handler=handler)
         command_subparser = handler.setup_clparser(command_subparser)
